@@ -3,7 +3,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const { transform } = require("@svgr/core");
 
-const CONFIG_FILE = "react-icon-components.json";
+const CONFIG_FILE = "react-svg-icon-components.json";
 const configPath = path.resolve(process.cwd(), CONFIG_FILE);
 
 if (!fs.existsSync(configPath)) {

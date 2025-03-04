@@ -5,7 +5,7 @@ A tool for transforming and optimizing SVG files into React components. Works se
 ## 📦 Installation
 
 ```sh
-npm install react-icon-components --save-dev
+npm install react-svg-icon-components --save-dev
 ```
 
 ## 🚀 Usage
@@ -13,10 +13,10 @@ npm install react-icon-components --save-dev
 1. **Create a config file** in your project root:
 
    ```sh
-   touch react-icon-components.json
+   touch react-svg-icon-components.json
    ```
 
-2. **Define your settings** inside `react-icon-components.json`:
+2. **Define your settings** inside `react-svg-icon-components.json`:
 
    ```json
    {
@@ -31,7 +31,7 @@ npm install react-icon-components --save-dev
 
 3. **Run the generator**:
    ```sh
-   npx react-icon-components generate-icons
+   npx react-svg-icon-components generate-icons
    ```
 
 ## ⚙️ Configuration Options
@@ -55,7 +55,7 @@ icons/
  ├── arrow.svg
 ```
 
-And your `react-icon-components.json` looks like this:
+And your `react-svg-icon-components.json` looks like this:
 
 ```json
 {
@@ -71,7 +71,7 @@ And your `react-icon-components.json` looks like this:
 Then **running the generator**:
 
 ```sh
-npx react-icon-components generate-icons
+npx react-svg-icon-components generate-icons
 ```
 
 Will generate:
@@ -112,7 +112,7 @@ export default IconClose;
 
 ### How do I generate TypeScript components?
 
-Set `"typescript": true` in your `react-icon-components.json`:
+Set `"typescript": true` in your `react-svg-icon-components.json`:
 
 ```json
 {
