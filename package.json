@@ -1,6 +1,6 @@
 {
   "name": "react-svg-icon-components",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Tool for optimizing and transforming SVG to JSX components ready to use right away",
   "scripts": {
     "generate-icons": "node dist/svgToReact.js"

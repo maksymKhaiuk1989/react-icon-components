@@ -7,7 +7,20 @@ const CONFIG_FILE = "react-svg-icon-components.json";
 const configPath = path.resolve(process.cwd(), CONFIG_FILE);
 
 if (!fs.existsSync(configPath)) {
-  console.error(`Config file "${CONFIG_FILE}" not found!`);
+  console.error(`❌ Config file "${CONFIG_FILE}" not found!\n`);
+  console.error("👉 To create a new config file, run the following command:");
+  console.error(`   touch ${CONFIG_FILE}\n`);
+  console.error("📌 Then, add following config into created file:");
+  console.error(`
+{
+  "iconsPath": "icons",
+  "outputDir": "ui-kit/icons",
+  "jsxRuntime": "classic",
+  "typescript": true,
+  "useDefaultOptimization": true,
+  "componentPrefix": "Icon"
+}
+  `);
   process.exit(1);
 }
 
@@ -30,7 +43,23 @@ async function generateIcons() {
   const files = fs
     .readdirSync(iconsPath)
     .filter((file) => file.endsWith(".svg"));
+
+  if (files.length === 0) {
+    console.log(
+      `⚠️ No SVG files found in the specified: "${iconsPath}" icons folder.`
+    );
+    process.exit(0);
+  }
+
+  if (fs.existsSync(outputDir)) {
+    fs.emptyDirSync(outputDir);
+  } else {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+
   let exports = [];
+  let componentNames = [];
+  let totalSize = 0;
 
   for (const file of files) {
     const iconName = path.basename(file, ".svg");
@@ -38,7 +67,6 @@ async function generateIcons() {
       componentPrefix + iconName.charAt(0).toUpperCase() + iconName.slice(1);
     const filePath = path.join(iconsPath, file);
 
-    // Read & optimize SVG
     let svgCode = fs.readFileSync(filePath, "utf-8");
 
     let selectedSvgoConfig = svgoConfig;
@@ -85,8 +113,6 @@ async function generateIcons() {
       { componentName }
     );
 
-    console.log(`Generated Component for ${componentName}:`, reactComponent);
-
     const fileExtension = typescript ? "tsx" : "jsx";
 
     const componentFile = path.join(
@@ -94,11 +120,12 @@ async function generateIcons() {
       `${componentName}.${fileExtension}`
     );
 
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir, { recursive: true });
-    }
-
     fs.writeFileSync(componentFile, reactComponent, "utf-8");
+
+    const fileSize = fs.statSync(componentFile).size;
+    totalSize += fileSize;
+
+    componentNames.push(componentName);
 
     exports.push(
       `export { default as ${componentName} } from "./${componentName}";`
@@ -112,6 +139,14 @@ async function generateIcons() {
     exports.join("\n"),
     "utf-8"
   );
+
+  const totalSizeKB = (totalSize / 1024).toFixed(2);
+
+  console.log("\n✅ Icon generation completed!");
+  console.log(`🔢 Components generated: ${componentNames.length}`);
+  console.log(`📦 Total size: ${totalSizeKB} KB`);
+  console.log(`📂 Output directory: ${outputDir}`);
+  console.log(`📜 Components: ${componentNames.join(", ")}`);
 }
 
 generateIcons();
