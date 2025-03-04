@@ -1,0 +1,32 @@
+{
+  "name": "react-icon-components",
+  "version": "0.0.1",
+  "description": "Tool for optimizing and transforming SVG to JSX components ready to use right away",
+  "scripts": {
+    "generate-icons": "node dist/svgToReact.js"
+  },
+  "bin": {
+    "generate-icons": "dist/svgToReact.js"
+  },
+  "keywords": [
+    "react",
+    "svg",
+    "icon"
+  ],
+  "author": "Maksym Khaiuk",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maksymKhaiuk1989/react-icon-components.git"
+  },
+  "main": "dist/svgToReact.js",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@svgr/core": "^8.1.0",
+    "@svgr/plugin-jsx": "^8.1.0",
+    "@svgr/plugin-svgo": "^8.1.0",
+    "fs-extra": "^11.3.0"
+  }
+}
