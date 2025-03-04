@@ -31,7 +31,7 @@ npm install react-icon-components --save-dev
 
 3. **Run the generator**:
    ```sh
-   npx react-icon-components
+   npx react-icon-components generate-icons
    ```
 
 ## ⚙️ Configuration Options
